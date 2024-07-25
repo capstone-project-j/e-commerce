@@ -1,12 +1,12 @@
 'use client'
 
-import { CartProductType, selectedImgType } from "@/app/product/[productId]/ProductDetails"
+import { CartProductType, SelectedImgType } from "@/app/product/[productId]/ProductDetails"
 import React from "react";
 
 interface SetColorProps {
-    images: selectedImgType[],
+    images: SelectedImgType[],
     cartProduct: CartProductType,
-    handleColorSelect: (value: selectedImgType) => void
+    handleColorSelect: (value: SelectedImgType) => void
 
 }
 

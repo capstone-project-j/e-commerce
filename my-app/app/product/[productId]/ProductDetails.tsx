@@ -1,5 +1,7 @@
 "use client"
 
+import Button from "@/app/components/Button";
+import ProductImage from "@/app/components/products/ProductImage";
 import SetColor from "@/app/components/products/SetColor";
 import SetQuantity from "@/app/components/products/SetQuantity";
 import { Rating } from "@mui/material";
@@ -15,13 +17,13 @@ export type CartProductType = {
     description: string,
     category: string,
     brands: string,
-    selectedImg: selectedImgType,
+    selectedImg: SelectedImgType,
     quantity: number,
     price: number
 }
 
 
-export type selectedImgType = {
+export type SelectedImgType = {
     color: string,
     colorCode: string,
     image: string
@@ -46,7 +48,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
     const productRating = product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / product.reviews.length;
 
-    const handleColorSelect = useCallback((value: selectedImgType) => {
+    const handleColorSelect = useCallback((value: SelectedImgType) => {
         setCartProduct((prev) => {
             return { ...prev, selectedImg: value };
         });
@@ -80,7 +82,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     console.log(cartProduct)
 
     return (<div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>Images</div>
+
+        <ProductImage
+            cartProduct={cartProduct}
+            product={product}
+            handleColorSelect={handleColorSelect}
+
+        />
+
         <div className="flex flex-col gap-1
         text-slate-500 text-sm">
             <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
@@ -110,7 +119,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 handleQtyDecrease={handleQtyDecrease}
             />
             <Horizontal />
-            <div>add to cart</div>
+            <div className="max-w-[300px]">
+                <Button
+                    label="Add to Cart"
+                    onClick={() => { }}
+
+                />
+            </div>
         </div>
     </div>
     )
