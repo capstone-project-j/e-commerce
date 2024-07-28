@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
-import { userCart } from "@/hooks/useCart"
 import Heading from "../components/Heading";
 import Button from "../components/Button";
 import ItemContent from "./ItemContent";
+import { useCart } from "@/hooks/useCart";
 
 const CartClient = () => {
-    const { cartProducts } = userCart()
+    const { cartProducts } = useCart()
 
     if (!cartProducts || cartProducts.length === 0) {
         return (

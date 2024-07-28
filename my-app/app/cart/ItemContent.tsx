@@ -7,14 +7,14 @@ import { truncateText } from "@/utils/truncateText";
 import Image from "next/image";
 import SetQuantity from "../components/products/SetQuantity";
 import React from "react";
-import { userCart } from "@/hooks/useCart"
+import { useCart } from "@/hooks/useCart"
 
 
 interface ItemContentProps {
     item: CartProductType
 }
 const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
-    const { handleRemoveProductFromCart } = userCart()
+    const { handleRemoveProductFromCart } = useCart()
     return (<div className="
         grid
         grid-cols-5
