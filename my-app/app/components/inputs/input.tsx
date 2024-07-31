@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
       ${errors[id] ? 'focus: border-rose-400' : 'border-slate-300'}
       `
             } />
-        <label htmlFor={id} className="absolute 
+        <label htmlFor={id} className={`absolute 
         cursor-text
         text-md
         duration-150
@@ -60,7 +60,8 @@ const Input: React.FC<InputProps> = ({
         peer-placeholder-shown:translate-y-0
         peer-focus:scale-75
         peer-focus:-translate-y-4
-        "
+        ${errors[id] ? 'text-rose-500' : 'text-slate-400'}
+        `}
         >{label}</label>
 
     </div>
