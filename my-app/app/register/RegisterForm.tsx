@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Heading from "../components/Heading";
-import Input from "../components/inputs/input";
+import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import Button from "../components/Button";
 import Link from "next/link";
@@ -11,6 +11,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from 'next-auth/react'
 import { useRouter } from "next/navigation";
+
+
 
 
 
@@ -34,6 +36,12 @@ const RegisterForm = () => {
 
         axios.post('/api/register', data).then(() => {
             toast.success('Account created')
+            //change from here
+
+            // router.push("/cart")
+            // router.refresh()
+            // toast.success('Logged In')
+
 
             signIn("credentials", {
                 email: data.email,
