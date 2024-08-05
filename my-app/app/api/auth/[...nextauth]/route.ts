@@ -3,9 +3,10 @@ import GoogleProvider from "next-auth/providers/google"; // Correct import for G
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"; // Ensure this is the correct path
 import prisma from "@/app/libs/prismadb";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
-console.log("whatever ")
+console.log("whatever");
+
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
@@ -27,30 +28,30 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials.password) {
-                    throw new Error('invalid email or password')
+                    throw new Error('Invalid email or password');
                 }
 
                 const user = await prisma.user.findUnique({
                     where: {
-                        email: credentials.email
-                    }
-                })
+                        email: credentials.email,
+                    },
+                });
 
                 if (!user || !user?.hashedPassword) {
-                    throw new Error('Invalid email or password')
+                    throw new Error('Invalid email or password');
                 }
 
                 const isCorrectPassword = await bcrypt.compare(
                     credentials.password,
-                    user.hashedPassword
-                )
+                    user.hashedPassword,
+                );
 
                 if (!isCorrectPassword) {
                     throw new Error('Invalid email or password');
                 }
 
                 return user;
-            }
+            },
         }),
     ],
     pages: {
@@ -61,6 +62,9 @@ export const authOptions: AuthOptions = {
         strategy: 'jwt',
     },
     secret: process.env.NEXTAUTH_SECRET,
-}
+};
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+// Export named handlers for each HTTP method
+export { handler as GET, handler as POST };
