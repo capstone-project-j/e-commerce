@@ -7,9 +7,14 @@ import { AiFillCaretDown } from "react-icons/ai";
 import MenuItem from "./MenuItem"
 import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
+import { User } from "@prisma/client";
+import { SafeUser } from "@/app/types";
 
+interface UserMenuProps {
+    currentUser: SafeUser | null
+}
 
-const UserMenu = () => {
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
     const [isOPen, setIsOpen] = useState(false)
 
@@ -52,26 +57,26 @@ const UserMenu = () => {
                     flex-col
                     cursor-pointer
                     ">
-                        <div>
+                        {currentUser ? <div>
                             <Link href="/orders" >
                                 <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
                             </Link>
                             <Link href="/admin" >
                                 <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
                             </Link>
+                            <hr />
                             <MenuItem onClick={() => {
                                 toggleOpen();
                                 signOut()
                             }}> Logout</MenuItem>
-                        </div>
-                        <div>
+                        </div> : <div>
                             <Link href="/login" >
                                 <MenuItem onClick={toggleOpen}>Login</MenuItem>
                             </Link>
                             <Link href="/register" >
                                 <MenuItem onClick={toggleOpen}>Register</MenuItem>
                             </Link>
-                        </div>
+                        </div>}
                     </div>
                 )}
             </div>
